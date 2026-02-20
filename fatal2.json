@@ -1,0 +1,127 @@
+[
+  {
+    "file": "Header.jsx",
+    "err": "Parsing error: Expecting Unicode escape sequence \\uXXXX",
+    "line": 12
+  },
+  {
+    "file": "LanguagePicker.jsx",
+    "err": "Parsing error: Expecting Unicode escape sequence \\uXXXX",
+    "line": 9
+  },
+  {
+    "file": "MobileNav.jsx",
+    "err": "Parsing error: Expecting Unicode escape sequence \\uXXXX",
+    "line": 9
+  },
+  {
+    "file": "NotificationBell.jsx",
+    "err": "Parsing error: Expecting Unicode escape sequence \\uXXXX",
+    "line": 9
+  },
+  {
+    "file": "Sidebar.jsx",
+    "err": "Parsing error: Expecting Unicode escape sequence \\uXXXX",
+    "line": 9
+  },
+  {
+    "file": "StatCard.jsx",
+    "err": "Parsing error: Expecting Unicode escape sequence \\uXXXX",
+    "line": 9
+  },
+  {
+    "file": "index.jsx",
+    "err": "Parsing error: Expecting Unicode escape sequence \\uXXXX",
+    "line": 1
+  },
+  {
+    "file": "AppContext.jsx",
+    "err": "Parsing error: Expecting Unicode escape sequence \\uXXXX",
+    "line": 1
+  },
+  {
+    "file": "AdminPage.jsx",
+    "err": "Parsing error: Expecting Unicode escape sequence \\uXXXX",
+    "line": 9
+  },
+  {
+    "file": "BuyerDashboard.jsx",
+    "err": "Parsing error: Expecting Unicode escape sequence \\uXXXX",
+    "line": 9
+  },
+  {
+    "file": "BuyerDemandsPage.jsx",
+    "err": "Parsing error: Expecting Unicode escape sequence \\uXXXX",
+    "line": 9
+  },
+  {
+    "file": "BuyerLoginPage.jsx",
+    "err": "Parsing error: Expecting Unicode escape sequence \\uXXXX",
+    "line": 9
+  },
+  {
+    "file": "CalculatorPage.jsx",
+    "err": "Parsing error: Expecting Unicode escape sequence \\uXXXX",
+    "line": 9
+  },
+  {
+    "file": "CreateDemandPage.jsx",
+    "err": "Parsing error: Expecting Unicode escape sequence \\uXXXX",
+    "line": 9
+  },
+  {
+    "file": "CreateListingPage.jsx",
+    "err": "Parsing error: Expecting Unicode escape sequence \\uXXXX",
+    "line": 9
+  },
+  {
+    "file": "FarmerDashboard.jsx",
+    "err": "Parsing error: Expecting Unicode escape sequence \\uXXXX",
+    "line": 9
+  },
+  {
+    "file": "FarmerListingsPage.jsx",
+    "err": "Parsing error: Expecting Unicode escape sequence \\uXXXX",
+    "line": 9
+  },
+  {
+    "file": "FarmerLoginPage.jsx",
+    "err": "Parsing error: Expecting Unicode escape sequence \\uXXXX",
+    "line": 9
+  },
+  {
+    "file": "ImpactDashboard.jsx",
+    "err": "Parsing error: Expecting Unicode escape sequence \\uXXXX",
+    "line": 9
+  },
+  {
+    "file": "MapViewPage.jsx",
+    "err": "Parsing error: Expecting Unicode escape sequence \\uXXXX",
+    "line": 9
+  },
+  {
+    "file": "MatchesPage.jsx",
+    "err": "Parsing error: Expecting Unicode escape sequence \\uXXXX",
+    "line": 9
+  },
+  {
+    "file": "OffersPage.jsx",
+    "err": "Parsing error: Expecting Unicode escape sequence \\uXXXX",
+    "line": 9
+  },
+  {
+    "file": "ResetPasswordPage.jsx",
+    "err": "Parsing error: Expecting Unicode escape sequence \\uXXXX",
+    "line": 9
+  },
+  {
+    "file": "RoleSelectPage.jsx",
+    "err": "Parsing error: Expecting Unicode escape sequence \\uXXXX",
+    "line": 9
+  },
+  {
+    "file": "index.js",
+    "err": "Parsing error: Expecting Unicode escape sequence \\uXXXX",
+    "line": 89
+  }
+]

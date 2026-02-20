@@ -1,3 +1,4 @@
+require('dotenv').config();
 const express = require('express');
 const cors = require('cors');
 const db = require('./db');
@@ -8,6 +9,24 @@ app.use(cors());
 app.use(express.json());
 
 // ─── API ROUTES ───────────────────────────────────────────────────────────────
+
+app.post('/api/send-email', async (req, res) => {
+    try {
+        const response = await fetch("https://api.resend.com/emails", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+                "Authorization": `Bearer ${process.env.RESEND_API_KEY}`,
+            },
+            body: JSON.stringify(req.body)
+        });
+        const data = await response.json();
+        res.status(response.status).json(data);
+    } catch (err) {
+        console.error(err);
+        res.status(500).json({ error: 'Failed to send email' });
+    }
+});
 
 // Get full DB state (initialization)
 app.get('/api/db', async (req, res) => {
