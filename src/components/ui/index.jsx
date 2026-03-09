@@ -1,4 +1,5 @@
 import React from 'react';
+import { useApp } from '../../context/AppContext';
 
 function Badge({ children, color = "green" }) {
   const colors = {
@@ -47,23 +48,41 @@ function Btn({ children, onClick, color = "green", size = "md", disabled = false
 }
 
 function Input({ label, ...props }) {
+  const { speak, lang, speaking } = useApp() || {};
   return (
     <div>
-      {label && <label className="block text-sm font-medium text-gray-700 dark:text-zinc-300 mb-1.5">{label}</label>}
-      <input 
-        className="w-full border border-gray-200 dark:border-zinc-700 rounded-xl px-4 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-400 dark:focus:ring-emerald-500 bg-gray-50 dark:bg-zinc-800/50 text-gray-900 dark:text-zinc-100 placeholder-gray-400 dark:placeholder-zinc-500 transition-colors" 
-        {...props} 
+      {label && (
+        <label
+          className={`block text-sm font-medium mb-1.5 cursor-pointer transition-colors ${speaking ? 'text-blue-500 animate-pulse' : 'text-gray-700 dark:text-zinc-300 hover:text-blue-600 dark:hover:text-blue-400'}`}
+          onClick={() => speak && speak(label, lang)}
+          title="Read Aloud"
+        >
+          {label}
+        </label>
+      )}
+      <input
+        className="w-full border border-gray-200 dark:border-zinc-700 rounded-xl px-4 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-400 dark:focus:ring-emerald-500 bg-gray-50 dark:bg-zinc-800/50 text-gray-900 dark:text-zinc-100 placeholder-gray-400 dark:placeholder-zinc-500 transition-colors"
+        {...props}
       />
     </div>
   );
 }
 
 function Select({ label, children, ...props }) {
+  const { speak, lang, speaking } = useApp() || {};
   return (
     <div>
-      {label && <label className="block text-sm font-medium text-gray-700 dark:text-zinc-300 mb-1.5">{label}</label>}
-      <select 
-        className="w-full border border-gray-200 dark:border-zinc-700 rounded-xl px-4 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-400 dark:focus:ring-emerald-500 bg-gray-50 dark:bg-zinc-800/50 text-gray-900 dark:text-zinc-100 transition-colors" 
+      {label && (
+        <label
+          className={`block text-sm font-medium mb-1.5 cursor-pointer transition-colors ${speaking ? 'text-blue-500 animate-pulse' : 'text-gray-700 dark:text-zinc-300 hover:text-blue-600 dark:hover:text-blue-400'}`}
+          onClick={() => speak && speak(label, lang)}
+          title="Read Aloud"
+        >
+          {label}
+        </label>
+      )}
+      <select
+        className="w-full border border-gray-200 dark:border-zinc-700 rounded-xl px-4 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-400 dark:focus:ring-emerald-500 bg-gray-50 dark:bg-zinc-800/50 text-gray-900 dark:text-zinc-100 transition-colors"
         {...props}
       >
         {children}

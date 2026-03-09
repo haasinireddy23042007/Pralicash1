@@ -8,6 +8,9 @@ const port = 3001;
 app.use(cors());
 app.use(express.json());
 
+const linguisticRoutes = require('./linguistic_routes');
+app.use('/api', linguisticRoutes);
+
 // ─── API ROUTES ───────────────────────────────────────────────────────────────
 
 app.post('/api/send-email', async (req, res) => {

@@ -58,6 +58,9 @@ export const translations = {
     coalReplaced: "Coal Replaced", earnings: "Farmer Earnings",
     back: "Back", close: "Close", save: "Save",
     changeRole: "Change Role",
+    paymentVerification: "Payment Verification",
+    receivedMoney: "Received Money",
+    unpaidTaken: "Stubble taken but money not received",
   },
   hi: {
     appName: "प्रालीकैश", appTagline: "पराली से पैसे",
@@ -114,6 +117,9 @@ export const translations = {
     envImpact: "पर्यावरणीय प्रभाव", co2: "CO₂ बचाया", pm25: "PM2.5 बचाया",
     coalReplaced: "कोयला प्रतिस्थापित", earnings: "किसान की कमाई",
     back: "वापस", close: "बंद करें", save: "सहेजें", changeRole: "भूमिका बदलें",
+    paymentVerification: "भुगतान सत्यापन",
+    receivedMoney: "पैसे मिल गए",
+    unpaidTaken: "पराली उठा ली गई लेकिन पैसे नहीं मिले",
   },
   te: {
     appName: "ప్రాలీకాష్", appTagline: "మొక్కజొన్న డబ్బు",
@@ -134,6 +140,9 @@ export const translations = {
     changeRole: "పాత్ర మార్చు", logout: "లాగ్అవుట్",
     open: "తెరవు", clustered: "క్లస్టర్డ్", matched: "జతచేయబడింది",
     burnVsSell: "కాల్చు vs అమ్ము", calculator: "కాలిక్యులేటర్",
+    paymentVerification: "చెల్లింపు ధృవీకరణ",
+    receivedMoney: "డబ్బులు అందాయి",
+    unpaidTaken: "గడ్డి తీసుకున్నారు కానీ డబ్బులు అందలేదు",
   },
   ta: {
     appName: "பிரலிகேஷ்", appTagline: "தாள் பணம்",
@@ -172,6 +181,9 @@ export const translations = {
     farmerLogin: "ਕਿਸਾਨ ਲਾਗਿਨ", buyerLogin: "ਖਰੀਦਦਾਰ ਲਾਗਿਨ",
     open: "ਖੁੱਲ੍ਹਾ", clustered: "ਕਲੱਸਟਰਡ", matched: "ਮੇਲ ਖਾਂਦਾ",
     burnVsSell: "ਸਾੜੋ vs ਵੇਚੋ", calculator: "ਕੈਲਕੁਲੇਟਰ",
+    paymentVerification: "ਭੁਗਤਾਨ ਦੀ ਤਸਦੀਕ",
+    receivedMoney: "ਪੈਸੇ ਮਿਲ ਗਏ",
+    unpaidTaken: "ਪਰਾਲੀ ਲੈ ਲਈ ਪਰ ਪੈਸੇ ਨਹੀਂ ਮਿਲੇ",
   },
   mr: {
     appName: "प्रालीकॅश", appTagline: "पेंढा पैसे",

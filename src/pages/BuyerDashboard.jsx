@@ -3,7 +3,7 @@ import { useApp } from '../context/AppContext';
 import { StatusBadge, Card, Btn } from '../components/ui';
 import { formatINR, haversine } from '../utils';
 import StatCard from '../components/StatCard';
-import { PackageSearch, Link2, Wheat, CheckCircle, Settings, Zap, Target, BarChart } from 'lucide-react';
+import { PackageSearch, Link2, Wheat, CheckCircle, Settings, Zap, Target, BarChart, AlertTriangle } from 'lucide-react';
 
 export default function BuyerDashboard({ setPage }) {
   const { db, setDb, currentUser, tt } = useApp();
@@ -15,6 +15,30 @@ export default function BuyerDashboard({ setPage }) {
   const myDemands = demands.filter(d => d.buyer_user_id === currentUser.id);
   const myMatches = matches.filter(m => myDemands.map(d => d.id).includes(m.demand_id));
   const totalRequired = myDemands.reduce((a, d) => a + d.required_tonnes, 0);
+
+  // Find unpaid listings from accepted matches
+  const unpaidListings = [];
+  myMatches.forEach(match => {
+    // We only care if stubble is taken (ACCEPTED) but money isn't paid
+    if (match.status === "ACCEPTED" && match.payment_status !== "PAID") {
+      const cluster = clusters.find(c => c.id === match.cluster_id);
+      if (cluster) {
+        cluster.member_listing_ids.forEach(lid => {
+          const listing = listings.find(l => l.id === lid);
+          if (listing && listing.payment_status !== "PAID") {
+            const farmerProfile = db?.farmerProfiles?.find(fp => fp.user_id === listing.farmer_user_id);
+            unpaidListings.push({
+              matchId: match.id,
+              listingId: listing.id,
+              farmerName: farmerProfile ? farmerProfile.full_name : "Farmer",
+              village: listing.village_name,
+              tonnes: listing.estimated_tonnes
+            });
+          }
+        });
+      }
+    }
+  });
 
   const runClustering = () => {
     const openListings = listings.filter(l => l.status === "OPEN");
@@ -88,14 +112,34 @@ export default function BuyerDashboard({ setPage }) {
         </div>
         <Btn onClick={() => setPage("createDemand")}>+ {tt("createDemand")}</Btn>
       </div>
-      
+
+      {unpaidListings.length > 0 && (
+        <Card className="p-4 bg-red-50 border-red-200 dark:bg-red-900/10 dark:border-red-800/50">
+          <h3 className="text-red-800 dark:text-red-400 font-bold mb-3 flex items-center gap-2">
+            <AlertTriangle size={18} /> Payment Pending Alerts
+          </h3>
+          <div className="space-y-2">
+            {unpaidListings.map((ul, idx) => (
+              <div key={idx} className="bg-white dark:bg-red-950/20 p-3 rounded-lg border border-red-100 dark:border-red-900/30 text-sm flex items-center justify-between">
+                <div>
+                  Stubble collected from <span className="font-bold">{ul.farmerName}</span> in <span className="font-bold">{ul.village}</span> ({ul.tonnes} tonnes).
+                </div>
+                <span className="text-red-600 dark:text-red-400 font-semibold bg-red-100 dark:bg-red-900/30 px-2 py-1 rounded">
+                  Unpaid
+                </span>
+              </div>
+            ))}
+          </div>
+        </Card>
+      )}
+
       <div className="grid grid-cols-2 lg:grid-cols-4 gap-4">
         <StatCard icon={PackageSearch} label={tt("myDemands")} value={myDemands.length} color="blue" />
         <StatCard icon={Link2} label={tt("matches")} value={myMatches.length} color="amber" />
         <StatCard icon={Wheat} label={tt("requiredTonnes")} value={`${totalRequired}t`} color="emerald" />
         <StatCard icon={CheckCircle} label="Accepted" value={myMatches.filter(m => m.status === "ACCEPTED").length} color="purple" />
       </div>
-      
+
       {currentUser.role === "ADMIN" && (
         <div className="grid md:grid-cols-2 gap-4">
           <Card className="p-5">
@@ -136,7 +180,7 @@ export default function BuyerDashboard({ setPage }) {
           </Card>
         </div>
       )}
-      
+
       <Card>
         <div className="p-5 border-b border-gray-50 dark:border-zinc-800 flex items-center justify-between">
           <h2 className="font-semibold text-gray-800 dark:text-zinc-200">{tt("myDemands")}</h2>

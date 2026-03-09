@@ -1,10 +1,28 @@
 import { createContext, useContext } from 'react';
 
-// Translation helper
+// Translation helper for static dictionary keys
 export function t(translations, lang, key) {
   const dict = translations[lang] || translations.en;
   const fallback = translations.en || {};
   return (dict && dict[key]) || fallback[key] || key;
+}
+
+// Dynamic Translation API helper
+export async function translateText(text, targetLang) {
+  if (targetLang === 'en') return text;
+  try {
+    const res = await fetch('http://localhost:3001/api/translate', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ text, targetLang })
+    });
+    if (!res.ok) throw new Error("Translation failed");
+    const data = await res.json();
+    return data.translatedText;
+  } catch (err) {
+    console.error("Cloud Translation Error:", err);
+    return text; // Fallback to original text
+  }
 }
 
 // Local fallback data so the app can function even if the backend is offline.

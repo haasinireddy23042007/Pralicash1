@@ -1,16 +1,69 @@
-# React + Vite
+# 🌱 PraliCash - AgriTech Marketplace
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
+[![React](https://img.shields.io/badge/React-20232A?style=for-the-badge&logo=react&logoColor=61DAFB)](https://reactjs.org/)
+[![Vite](https://img.shields.io/badge/vite-%23646CFF.svg?style=for-the-badge&logo=vite&logoColor=white)](https://vitejs.dev/)
+[![Tailwind CSS](https://img.shields.io/badge/tailwindcss-%2338B2AC.svg?style=for-the-badge&logo=tailwind-css&logoColor=white)](https://tailwindcss.com/)
 
-Currently, two official plugins are available:
+**PraliCash** is a powerful AgriTech marketplace MVP designed to connect **Farmers** (supply) with **Industrial Buyers** (demand) for crop stubble. Our mission is to eliminate stubble burning—a major cause of air pollution—by transforming agricultural waste into a valuable commodity.
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+---
 
-## React Compiler
+## 🚀 Key Features
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+### 🌾 For Farmers
+- **Easy Listing**: Quick OTP login to list stubble acreage, estimated tonnage, and location.
+- **Monetization**: Turn waste into profit by connecting directly with buyers.
+- **Multilingual Support**: Fully translated interface in Hindi, Punjabi, and Telugu with voice assistance.
+- **Transparent Tracking**: Real-time status updates on "Received Money" or "Unpaid Taken".
 
-## Expanding the ESLint configuration
+### 🏢 For Company Buyers
+- **Demand Posting**: Specify tonnage requirements, price offers, and target locations.
+- **Smart Dashboard**: Manage matches and streamline logistics for biomass collection.
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+### ⚙️ Under the Hood (The Engine)
+- **Geospatial Clustering**: Uses Haversine distance algorithms to group nearby farmer listings into high-density "Clusters".
+- **Optimization Engine**: Matches clusters to demands using a weighted scoring system that balances distance and price for maximum efficiency.
+
+---
+
+## 🛠️ Tech Stack
+
+- **Frontend**: React 19 (Vite)
+- **Styling**: Tailwind CSS
+- **Icons**: Lucide React
+- **State**: React Context API (In-memory `INITIAL_DB` for MVP)
+- **AI/Linguistic**: Google Cloud Translation & Text-to-Speech (via Node.js backend proxy)
+
+---
+
+## 📥 Getting Started
+
+### Prerequisites
+- [Node.js](https://nodejs.org/) (v18+)
+- [npm](https://www.npmjs.com/)
+
+### Installation
+1.  **Clone the repository**:
+    ```bash
+    git clone https://github.com/CharanMunur/PraliCash1.git
+    cd PraliCash1
+    ```
+2.  **Install dependencies**:
+    ```bash
+    npm install
+    ```
+3.  **Run in development mode**:
+    ```bash
+    npm run dev
+    ```
+
+---
+
+## 📄 License
+This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
+
+---
+
+## 📞 Contact
+Built with ❤️ for a greener future. For inquiries, please reach out to the project maintainer.

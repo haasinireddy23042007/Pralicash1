@@ -1,7 +1,9 @@
 {
-  "name": "newwwwwww",
+  "name": "pralicash-agritech",
   "private": true,
-  "version": "0.0.0",
+  "version": "1.0.0",
+  "description": "An AgriTech marketplace MVP that connects farmers with biomass buyers to prevent stubble burning.",
+  "author": "CharanMunur",
   "type": "module",
   "scripts": {
     "dev": "vite",

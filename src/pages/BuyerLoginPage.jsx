@@ -7,12 +7,13 @@ import LanguagePicker from '../components/LanguagePicker';
 
 export default function BuyerLoginPage({ setPage }) {
   const { db, setDb, setCurrentUser, tt } = useApp();
-  const [view, setView] = useState("login"); // login | signup | otp
+  const [view, setView] = useState("login");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [buyerName, setBuyerName] = useState("");
   const [companyName, setCompanyName] = useState("");
   const [phone, setPhone] = useState("");
+  const [acceptedTerms, setAcceptedTerms] = useState(false);
   const [otp, setOtp] = useState(["", "", "", "", "", ""]);
   const [error, setError] = useState("");
   const [countdown, setCountdown] = useState(300);
@@ -41,7 +42,12 @@ export default function BuyerLoginPage({ setPage }) {
   const formatTime = s => `${Math.floor(s / 60)}:${String(s % 60).padStart(2, "0")}`;
 
   const handleSendOtp = async () => {
+    if (view === "signup" && !acceptedTerms) {
+      setError("You must accept the strict legal terms to register as a buyer.");
+      return;
+    }
     if (!email.includes("@")) { setError("Enter valid email"); return; }
+
     setSending(true);
     const generatedOtp = Math.floor(100000 + Math.random() * 900000).toString();
     const newOtp = { email, otp_hash: generatedOtp, expires_at: Date.now() + 300000, attempts: 0, is_used: false };
@@ -76,7 +82,7 @@ export default function BuyerLoginPage({ setPage }) {
       let currentUserObj = user;
 
       if (!user) {
-        currentUserObj = { id: prev.nextIds.buyer, role: "BUYER", email, buyer_name: email.split("@")[0], company_name: "New Enterprise", is_active: true };
+        currentUserObj = { id: prev.nextIds.buyer, role: "BUYER", email, buyer_name: buyerName || email.split("@")[0], company_name: companyName || "New Enterprise", phone, is_active: true };
         nextDb.buyers = [...prev.buyers, currentUserObj];
         nextDb.nextIds.buyer = prev.nextIds.buyer + 1;
       }
@@ -98,13 +104,13 @@ export default function BuyerLoginPage({ setPage }) {
       </div>
       <Card className="max-w-sm w-full z-10 bg-white/90 dark:bg-zinc-900/90 backdrop-blur border border-gray-100 dark:border-zinc-800 shadow-lg shadow-emerald-100/60 dark:shadow-none">
         <div className="p-8">
-          <button 
-            onClick={() => setView("login")} 
+          <button
+            onClick={() => setView("login")}
             className="text-sm text-gray-400 dark:text-zinc-500 hover:text-gray-600 dark:hover:text-zinc-300 flex items-center gap-1.5 mb-6 transition-colors"
           >
             <ArrowLeft size={16} /> {tt("back")}
           </button>
-          
+
           <div className="text-center mb-6">
             <div className="w-16 h-16 bg-blue-100 dark:bg-blue-500/20 rounded-2xl flex items-center justify-center mx-auto mb-4">
               <Mail size={32} className="text-blue-600 dark:text-blue-400" />
@@ -137,8 +143,8 @@ export default function BuyerLoginPage({ setPage }) {
       </div>
       <Card className="max-w-sm w-full z-10 bg-white/90 dark:bg-zinc-900/90 backdrop-blur border border-gray-100 dark:border-zinc-800 shadow-lg shadow-emerald-100/60 dark:shadow-none">
         <div className="p-8">
-          <button 
-            onClick={() => setPage("roleSelect")} 
+          <button
+            onClick={() => setPage("roleSelect")}
             className="text-sm text-gray-400 dark:text-zinc-500 hover:text-gray-600 dark:hover:text-zinc-300 flex items-center gap-1.5 mb-6 transition-colors"
           >
             <ArrowLeft size={16} /> {tt("back")}
@@ -156,13 +162,33 @@ export default function BuyerLoginPage({ setPage }) {
               <Input label={tt("phone")} value={phone} onChange={e => setPhone(e.target.value)} placeholder="+91 98765 43210" />
             </>}
             <Input label={tt("email")} type="email" value={email} onChange={e => setEmail(e.target.value)} placeholder="haasinireddy2304@gmail.com" />
+
             {view === "login" && <Input label={tt("password")} type="password" value={password} onChange={e => setPassword(e.target.value)} placeholder="••••••••" />}
+
+            {view === "signup" && (
+              <div className="p-4 mt-2 bg-red-50 dark:bg-red-500/10 border border-red-200 dark:border-red-500/30 rounded-xl relative">
+                <label className="flex items-start gap-3 cursor-pointer">
+                  <input
+                    type="checkbox"
+                    checked={acceptedTerms}
+                    onChange={e => setAcceptedTerms(e.target.checked)}
+                    className="mt-1 w-4 h-4 text-red-600 rounded cursor-pointer"
+                  />
+                  <div className="text-xs text-red-800 dark:text-red-300 font-medium leading-relaxed">
+                    By checking this box, I legally agree on behalf of my company that <strong className="font-bold underline">strict legal action will be taken</strong> under the Farmers (Empowerment and Protection) Agreement against my company if we fail to pay the agreed amount to the farmer upon receiving the stubble.
+                  </div>
+                </label>
+              </div>
+            )}
+
             {error && <div className="bg-red-50 dark:bg-red-500/10 border border-red-200 dark:border-red-500/20 text-red-700 dark:text-red-400 text-sm rounded-xl px-4 py-3">{error}</div>}
+
             {view === "login" ? (
               <Btn onClick={handlePasswordLogin} fullWidth size="lg" color="amber">{tt("login")}</Btn>
             ) : (
               <Btn onClick={handleSendOtp} fullWidth size="lg" color="amber" disabled={sending}>{sending ? "Sending..." : tt("sendOtp")}</Btn>
             )}
+
             {view === "login" && (
               <div className="flex items-center gap-2 py-2">
                 <div className="flex-1 h-px bg-gray-200 dark:bg-zinc-800"></div>

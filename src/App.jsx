@@ -43,6 +43,16 @@ export default function App() {
 
   useEffect(() => { localStorage.setItem("pralicash-lang", lang); }, [lang]);
 
+  // Force Safari/Chrome to load system voices into array immediately
+  useEffect(() => {
+    if (typeof window !== 'undefined' && window.speechSynthesis) {
+      window.speechSynthesis.getVoices();
+      window.speechSynthesis.onvoiceschanged = () => {
+        window.speechSynthesis.getVoices();
+      };
+    }
+  }, []);
+
   useEffect(() => {
     localStorage.setItem("pralicash-theme", theme);
     const root = window.document.documentElement;
@@ -88,16 +98,82 @@ export default function App() {
       .catch(err => console.error("Failed to load DB:", err));
   }, []);
 
-  const speak = (text) => {
-    if (!window.speechSynthesis) return;
-    window.speechSynthesis.cancel();
+  const speak = async (text, currentLang = lang) => {
+    // Map standard app lang codes to valid TTS/BCP-47 dialects
+    const ttsLangMap = {
+      en: 'en-IN',
+      hi: 'hi-IN',
+      te: 'te-IN'
+    };
+    const bcp47Lang = ttsLangMap[currentLang] || currentLang;
+
+    // 1. Fallback for English or browsers without fetch (saves cloud costs)
+    if (currentLang === 'en' || !window.fetch) {
+      if (!window.speechSynthesis) return;
+      window.speechSynthesis.cancel();
+      setSpeaking(true);
+      const utterance = new SpeechSynthesisUtterance(text);
+      utterance.lang = bcp47Lang;
+
+      const voices = window.speechSynthesis.getVoices();
+      const targetVoice = voices.find(v => v.lang.includes(bcp47Lang) || v.lang.includes(currentLang));
+      if (targetVoice) utterance.voice = targetVoice;
+
+      utterance.onend = () => setSpeaking(false);
+      utterance.onerror = () => setSpeaking(false);
+      window.speechSynthesis.speak(utterance);
+      return;
+    }
+
+    // 2. High-quality Cloud TTS for regional Indian languages
     setSpeaking(true);
-    const utterance = new SpeechSynthesisUtterance(text);
-    const langMap = { hi: "hi-IN", pa: "pa-IN", te: "te-IN", ta: "ta-IN", mr: "mr-IN", gu: "gu-IN", bn: "bn-IN", kn: "kn-IN", ml: "ml-IN" };
-    utterance.lang = langMap[lang] || lang;
-    utterance.onend = () => setSpeaking(false);
-    utterance.onerror = () => setSpeaking(false);
-    window.speechSynthesis.speak(utterance);
+    try {
+      // Assuming Vite connects React via proxy or directly
+      // In production you would use a relative path like '/api/tts'
+      // But we will use the backend port directly here since they run separately in dev
+      const response = await fetch('http://localhost:3001/api/tts', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ text: text, lang: currentLang })
+      });
+
+      if (!response.ok) {
+        throw new Error("TTS Backend failed or missing credentials.");
+      }
+
+      const blob = await response.blob();
+      const audioUrl = URL.createObjectURL(blob);
+      const audio = new Audio(audioUrl);
+
+      audio.onended = () => {
+        setSpeaking(false);
+        URL.revokeObjectURL(audioUrl); // clean up memory
+      };
+
+      audio.play().catch(e => {
+        console.error("Audio playback prevented:", e);
+        setSpeaking(false);
+      });
+
+    } catch (err) {
+      console.warn("Falling back to browser TTS. Cloud Error:", err);
+      // Fallback
+      if (window.speechSynthesis) {
+        window.speechSynthesis.cancel();
+        const utterance = new SpeechSynthesisUtterance(text);
+        utterance.lang = bcp47Lang;
+
+        const voices = window.speechSynthesis.getVoices();
+        const targetVoice = voices.find(v => v.lang.includes(bcp47Lang) || v.lang.includes(currentLang));
+        if (targetVoice) utterance.voice = targetVoice;
+
+        utterance.onend = () => setSpeaking(false);
+        utterance.onerror = () => setSpeaking(false);
+        window.speechSynthesis.speak(utterance);
+      } else {
+        setSpeaking(false);
+      }
+    }
   };
 
   const stopSpeak = () => {
