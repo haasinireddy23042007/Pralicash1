@@ -1,4 +1,4 @@
-# 🌱 PraliCash - AgriTech Marketplace
+#  PraliCash - AgriTech Marketplace
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 [![React](https://img.shields.io/badge/React-20232A?style=for-the-badge&logo=react&logoColor=61DAFB)](https://reactjs.org/)
@@ -9,25 +9,25 @@
 
 ---
 
-## 🚀 Key Features
+##  Key Features
 
-### 🌾 For Farmers
+### For Farmers
 - **Easy Listing**: Quick OTP login to list stubble acreage, estimated tonnage, and location.
 - **Monetization**: Turn waste into profit by connecting directly with buyers.
 - **Multilingual Support**: Fully translated interface in Hindi, Punjabi, and Telugu with voice assistance.
 - **Transparent Tracking**: Real-time status updates on "Received Money" or "Unpaid Taken".
 
-### 🏢 For Company Buyers
+###  For Company Buyers
 - **Demand Posting**: Specify tonnage requirements, price offers, and target locations.
 - **Smart Dashboard**: Manage matches and streamline logistics for biomass collection.
 
-### ⚙️ Under the Hood (The Engine)
+###  Under the Hood (The Engine)
 - **Geospatial Clustering**: Uses Haversine distance algorithms to group nearby farmer listings into high-density "Clusters".
 - **Optimization Engine**: Matches clusters to demands using a weighted scoring system that balances distance and price for maximum efficiency.
 
 ---
 
-## 🛠️ Tech Stack
+##  Tech Stack
 
 - **Frontend**: React 19 (Vite)
 - **Styling**: Tailwind CSS
@@ -37,7 +37,7 @@
 
 ---
 
-## 📥 Getting Started
+##  Getting Started
 
 ### Prerequisites
 - [Node.js](https://nodejs.org/) (v18+)
@@ -60,10 +60,10 @@
 
 ---
 
-## 📄 License
+##  License
 This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
 
 ---
 
-## 📞 Contact
+##  Contact
 Built with ❤️ for a greener future. For inquiries, please reach out to the project maintainer.
