@@ -12,6 +12,21 @@ dist
 dist-ssr
 *.local
 
+# Error reports and logs
+build_err.txt
+build_out.txt
+err.txt
+fatal*.json
+lint*.json
+lint_output.txt
+
+# Redundant data/metadata
+sections.json
+sections_content.json
+proxy_res.txt
+resend_*.txt
+resend_test.json
+
 # Editor directories and files
 .vscode/*
 !.vscode/extensions.json
